@@ -1,10 +1,5 @@
 
-‰
-java:S1075"ARefactor your code to get this URI from a customizable parameter.(·İø§ıÿÿÿÿ8ïŸæ­ç1J$0bcbf656-5349-42d0-8322-2042b4227699
-r	java:S106%"+Replace this use of System.out by a logger.(¯º°Éùÿÿÿÿ8óŸæ­ç1J$1dc45a0d-51c0-41f0-9f31-ffaecb97d718
-m	java:S106*"+Replace this use of System.out by a logger.(ùÄ¡8ôŸæ­ç1J$00a330f1-2f54-4f88-8831-1a112033342a
-r	java:S1065"+Replace this use of System.out by a logger.(Œè·øÿÿÿÿ8õŸæ­ç1J$ba2640ec-b780-484c-a09d-3a734ebaf5fd
 n
-java:S1874="+Remove this use of "URL"; it is deprecated.(³Â·¶8øŸæ­ç1J$4d64ebc9-efc4-44cc-885a-81088b2dd487
+java:S18743"+Remove this use of "URL"; it is deprecated.(³Â·¶8Ãî®ç1J$b3f2dacd-8668-4601-a318-33b3d7a6e8e0
 `
-java:S2119J"Save and re-use this "Random".(¼İÅf8úŸæ­ç1J$82093c1e-5c32-465b-8c3b-38973dfd5c7d
+java:S2119@"Save and re-use this "Random".(¼İÅf8’Ãî®ç1J$50bf3806-3ad7-49ba-a194-58dff7af1ff3

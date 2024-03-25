@@ -1,10 +1,12 @@
-package com.zoi4erom.factimagegen;
+package com.zoi4erom.factimagegen.bot;
 
+import com.zoi4erom.factimagegen.config.BotConfig;
+import com.zoi4erom.factimagegen.image.ImageModifier;
+import com.zoi4erom.factimagegen.image.ImageParser;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -17,20 +19,13 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
 
-	private BotConfig botConfig;
+	private final BotConfig botConfig;
+	private final ImageParser imageParser;
+
 	@Autowired
-	public TelegramBot(BotConfig botConfig) {
+	public TelegramBot(BotConfig botConfig, ImageParser imageParser) {
 		this.botConfig = botConfig;
-	}
-
-	@Override
-	public String getBotUsername() {
-		return botConfig.getBotName();
-	}
-
-	@Override
-	public String getBotToken() {
-		return botConfig.getToken();
+		this.imageParser = imageParser;
 	}
 
 	private boolean waitingForNextMessage = false;
@@ -46,8 +41,8 @@ public class TelegramBot extends TelegramLongPollingBot {
 			if (!text.isBlank()) {
 				if (!waitingForNextMessage) {
 					sendMessage(chatId,
-					    "Привіт " + userName + " для початку роботи надішліть "
-						  + "факт та ключове слово(факт:ключове слово)");
+					    "Hello " + userName + " to start working please send "
+						  + "a fact and a keyword (fact:keyword)");
 					waitingForNextMessage = true;
 					lastChatId = chatId;
 				} else if (chatId.equals(lastChatId)) {
@@ -63,27 +58,23 @@ public class TelegramBot extends TelegramLongPollingBot {
 		String[] parts = nextMessage.split(":");
 
 		if (parts.length != 2) {
-			sendMessage(chatId, "Неправильний формат повідомлення. Будь ласка, використовуйте формат: факт:ключове_слово");
+			sendMessage(chatId,
+			    "Incorrect message format. Please use the format: fact:keyword");
 			return;
 		}
 
-		// Отримуємо факт та ключове слово
 		String fact = parts[0].trim();
 		String keyword = parts[1].trim();
 
-		sendMessage(chatId, "Отримано факт: " + fact);
-		sendMessage(chatId, "Отримано ключове слово: " + keyword);
+		sendMessage(chatId, "Received fact: " + fact);
+		sendMessage(chatId, "Received keyword: " + keyword);
 
-		Parser parser = new Parser();
-		parser.start(keyword);
+		imageParser.searchAndDownloadImage(keyword);
 
-		var bufferedImage = ImageWork.darkenAndAddText(fact);
+		BufferedImage bufferedImage = ImageModifier.darkenAndAddText(fact);
 
 		sendImage(chatId, bufferedImage);
 	}
-
-
-
 	private void sendMessage(String chatId, String textToSend) {
 		SendMessage sendMessage = new SendMessage();
 		sendMessage.setChatId(chatId);
@@ -97,7 +88,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
 	private void sendImage(String chatId, BufferedImage image) {
 		if (image == null) {
-			sendMessage(chatId, "На жаль, сталася помилка при створенні зображення.");
+			sendMessage(chatId, "Unfortunately, an error occurred while creating the image.");
 			return;
 		}
 
@@ -114,5 +105,14 @@ public class TelegramBot extends TelegramLongPollingBot {
 		} catch (TelegramApiException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+	@Override
+	public String getBotUsername() {
+		return botConfig.getBotName();
+	}
+
+	@Override
+	public String getBotToken() {
+		return botConfig.getToken();
 	}
 }

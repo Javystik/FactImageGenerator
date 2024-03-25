@@ -1,6 +1,5 @@
-package com.zoi4erom.factimagegen;
+package com.zoi4erom.factimagegen.bot;
 
-import com.zoi4erom.factimagegen.TelegramBot;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

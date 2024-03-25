@@ -1,4 +1,4 @@
-package com.zoi4erom.factimagegen;
+package com.zoi4erom.factimagegen.config;
 
 import lombok.Getter;
 import lombok.Setter;
