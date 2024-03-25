@@ -1,0 +1,6 @@
+
+
+java:S1874"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(®É–Ø8‘¥¯æ1J$6f4599b9-211a-4458-b7e1-f27485e527a2
+}	java:S899J";Do something with the "boolean" value returned by "delete".(çœÄ8¤¥¯æ1J$8763b6ed-2cba-496e-a396-426508212573
+‘
+java:S4042J"NUse "java.nio.file.Files#delete" here for better messages on error conditions.(çœÄ8¥¥¯æ1J$79da9f70-aec4-4457-8866-5f98f24815a5
