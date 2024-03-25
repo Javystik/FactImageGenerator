@@ -10,8 +10,10 @@ import java.awt.image.RescaleOp;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import org.springframework.stereotype.Component;
 
 //Клас для роботи з картинкою: завантаження, затемнення, вставка тексту
+@Component
 public class ImageWork {
 
 	private ImageWork() {
@@ -19,8 +21,8 @@ public class ImageWork {
 
 	//Основний метод що керує іншими
 	public static BufferedImage darkenAndAddText(String fact) {
-		String imagePath = "C:\\Users\\user\\IdeaProjects\\FactImageGenerator\\src\\main\\resources\\imba.jfif";
-		float darkenFactor = 0.5f;
+		String imagePath = "C:\\Users\\user\\IdeaProjects\\FactImageGenerator\\src\\main\\resources\\userImage.jpg";
+		float darkenFactor = 0.4f;
 		try {
 			BufferedImage userImage = loadImage(imagePath);
 			BufferedImage darkenedImage = darkenImage(userImage, darkenFactor);
